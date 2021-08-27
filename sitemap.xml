@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://github.mymultivac.com/</loc>
+         <lastmod>2021-08-27</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://github.mymultivac.com/about/</loc>
+         <lastmod>2021-08-27</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://github.mymultivac.com/foundation/</loc>
+         <lastmod>2021-08-27</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://github.mymultivac.com/pythonista-todo/</loc>
+         <lastmod>2021-08-27</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://github.mymultivac.com/reflections/</loc>
+         <lastmod>2021-08-27</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://github.mymultivac.com/smartish-dots/</loc>
+         <lastmod>2021-08-27</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+</urlset>
