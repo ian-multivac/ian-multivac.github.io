@@ -1,0 +1,652 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="https://github.mymultivac.com/projects/pythonista-todo/" rel="canonical"/>
+<link href="../../img/favicon.ico" rel="icon"/>
+<meta content="mkdocs-1.2.2, mkdocs-material-7.2.5" name="generator"/>
+<title>Todo Sync iOS Extension - myMultivac Projects</title>
+<link href="../../assets/stylesheets/main.be71726b.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.3f5d1f46.min.css" rel="stylesheet"/>
+<meta content="#2094f3" name="theme-color"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-Z8P09QN6EZ"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-Z8P09QN6EZ');
+</script>
+</head>
+<body data-md-color-accent="" data-md-color-primary="blue" data-md-color-scheme="default" dir="ltr">
+<script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#project-overview">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="myMultivac Projects" class="md-header__button md-logo" data-md-component="logo" href="../.." title="myMultivac Projects">
+<img alt="logo" src="../../img/favicon.ico"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            myMultivac Projects
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Todo Sync iOS Extension
+            
+          </span>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="myMultivac Projects" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="myMultivac Projects">
+<img alt="logo" src="../../img/favicon.ico"/>
+</a>
+    myMultivac Projects
+  </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+        myMultivac
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2">
+        Projects
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Projects" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+          Projects
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" id="__nav_2_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_1">
+        Public
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Public" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_1">
+<span class="md-nav__icon md-icon"></span>
+          Public
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          Todo Sync iOS Extension
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+        Todo Sync iOS Extension
+      </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#project-overview">
+    Project Overview
+  </a>
+<nav aria-label="Project Overview" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#built-with">
+    Built With
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#getting-started">
+    Getting Started
+  </a>
+<nav aria-label="Getting Started" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#prerequisites">
+    Prerequisites
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#installation-configuration">
+    Installation &amp; Configuration
+  </a>
+<nav aria-label="Installation &amp; Configuration" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#clickup-personal-api-key">
+    ClickUp Personal API Key
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#clickup-list-id">
+    ClickUp List ID
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#set-ios-reminders">
+    Set iOS Reminders
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#set-ios-reminders-alarms">
+    Set iOS Reminders Alarms
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#usage">
+    Usage
+  </a>
+<nav aria-label="Usage" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#structuring-your-todo-text">
+    Structuring Your TODO Text
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#processing-files">
+    Processing Files
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#additional-notes">
+    Additional Notes
+  </a>
+<nav aria-label="Additional Notes" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ios-notes-app">
+    iOS Notes App
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#pythonista-app">
+    Pythonista App
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#roadmap">
+    Roadmap
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#repository">
+    Repository
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" id="__nav_2_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_2">
+        Other
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Other" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_2">
+<span class="md-nav__icon md-icon"></span>
+          Other
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../reflections/">
+        Reflections
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../smartish-dots/">
+        Smartish Dots
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../foundation/">
+        Foundation
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../about/">
+        About
+      </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#project-overview">
+    Project Overview
+  </a>
+<nav aria-label="Project Overview" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#built-with">
+    Built With
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#getting-started">
+    Getting Started
+  </a>
+<nav aria-label="Getting Started" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#prerequisites">
+    Prerequisites
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#installation-configuration">
+    Installation &amp; Configuration
+  </a>
+<nav aria-label="Installation &amp; Configuration" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#clickup-personal-api-key">
+    ClickUp Personal API Key
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#clickup-list-id">
+    ClickUp List ID
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#set-ios-reminders">
+    Set iOS Reminders
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#set-ios-reminders-alarms">
+    Set iOS Reminders Alarms
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#usage">
+    Usage
+  </a>
+<nav aria-label="Usage" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#structuring-your-todo-text">
+    Structuring Your TODO Text
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#processing-files">
+    Processing Files
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#additional-notes">
+    Additional Notes
+  </a>
+<nav aria-label="Additional Notes" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ios-notes-app">
+    iOS Notes App
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#pythonista-app">
+    Pythonista App
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#roadmap">
+    Roadmap
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#repository">
+    Repository
+  </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1>Todo Sync iOS Extension</h1>
+<p>A Pythonista 3 script that parses text files and creates ClickUp tasks and iOS reminders for any flagged text.  Perfect for sifting through dozens of WIP projects!</p>
+<p><a href="https://github.com/ian-multivac/pythonista-todo-sync">View it on GitHub</a></p>
+<h3 id="project-overview">Project Overview<a class="headerlink" href="#project-overview" title="Permanent link">#</a></h3>
+<p>Todo list apps are a dime a dozen, and I often find myself hopping from one to another, depending on the project that I’m working on. Lately, I’ve been using Pythonista 3 on iOS a lot for prototyping small projects while I’m away from my desk. It has several really useful iOS-specific libraries that have been simple to use, but it’s challenging to swap back and forth between apps to update tasks or make notes.</p>
+<p>I also use several iPad apps to take notes that allow me to use Apple’s Pencil to scrawl out handwritten text and diagrams, and I generally export those to iCloud folders. They usually contain a lot of items that I jot down to follow up with, but they can easily get lost in the shuffle. It can be painful.</p>
+<p>This script will use the Share sheet within iOS, and process a text file line by line, looking for todo list items and keywords. If it finds them, it will create a new ClickUp task and iOS reminder item for each one, so I can more easily keep track of where I left off.</p>
+<h4 id="built-with">Built With<a class="headerlink" href="#built-with" title="Permanent link">#</a></h4>
+<ul>
+<li><a href="http://omz-software.com/pythonista/">Pythonista3</a></li>
+<li>Pythonista is an iOS-based Python IDE –at the time of writing, it is a paid app.</li>
+<li><a href="https://clickup.com">ClickUp</a></li>
+<li>ClickUp is a task / project / document manager that has a use-case for everyone.  I prefer it over Notion.</li>
+</ul>
+<h3 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">#</a></h3>
+<h4 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h4>
+<p>While there is no code to install to use this script, you will require Pythonista 3 in order to use the iOS-specific libraries that come with that app.  This script specifically creates tasks using ClickUp’s API, and you will require a few IDs from that platform as well.</p>
+<h4 id="installation-configuration">Installation &amp; Configuration<a class="headerlink" href="#installation-configuration" title="Permanent link">#</a></h4>
+<p>Import the <code>todo-sync.py</code> and <code>config.json.example</code> files into a folder within Pythonista.  Add the <code>todo-sync.py</code> script to a Share sheet shortcut –see Pythonista’s documentation for this here: <a href="https://omz-software.com/pythonista/docs/ios/appex.html">Utilities for Pythonista’s App Extensions</a>.  See the Usage section below for more details about the required text structures.</p>
+<p>Rename the <code>config.json.example</code> file to <code>config.json</code>.  Ensure that this file is stored in the same folder as the <code>todo_sync.py</code> script.</p>
+<p>This file should look similar to the following:</p>
+<pre><code class="language-json">{
+    "clickup_token": "pk_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "clickup_list_id": 87654321,
+    "set_ios_reminders": true,
+    "set_ios_reminders_alarms": true
+}
+</code></pre>
+<p>You will need to provide a key for both, <code>clickup_token</code> and <code>clickup_list_id</code> in order for the script to function correctly.</p>
+<h5 id="clickup-personal-api-key">ClickUp Personal API Key<a class="headerlink" href="#clickup-personal-api-key" title="Permanent link">#</a></h5>
+<p>If you don’t already have a ClickUp account, you will need to sign up for that first.  Once you do have an account, please review ClickUp’s article to find your Personal API Key <a href="https://docs.clickup.com/en/articles/1367130-getting-started-with-the-clickup-api">Getting Started with the ClickUp API</a>.</p>
+<p>Use this key for the <code>clickup_token</code>.</p>
+<h5 id="clickup-list-id">ClickUp List ID<a class="headerlink" href="#clickup-list-id" title="Permanent link">#</a></h5>
+<p>By default, this script will place all tasks into a single list.  You will need to create this list within ClickUp first, and copy the list ID to include in the <code>config.json</code> file.</p>
+<ol>
+<li>Create a new list within ClickUp (you can name it whatever you like)</li>
+<li>Open the list</li>
+<li>In the address bar of your browser, copy the list ID portion of the URL:</li>
+<li>https://app.clickup.com/12345678/v/l/li/<code>87654321</code></li>
+</ol>
+<p>Any tasks created by the script will be added to this list.</p>
+<h5 id="set-ios-reminders">Set iOS Reminders<a class="headerlink" href="#set-ios-reminders" title="Permanent link">#</a></h5>
+<p>If you wish, you can enable or disable setting iOS reminders for any tasks created.  When <code>set_ios_reminders</code> is set to <code>true</code>, the script will prompt you to authorize Pythonista to use your reminders.  You must allow this, or something will probably explode into error messages.  If it’s set to <code>false</code>, no iOS reminders will be set.</p>
+<h5 id="set-ios-reminders-alarms">Set iOS Reminders Alarms<a class="headerlink" href="#set-ios-reminders-alarms" title="Permanent link">#</a></h5>
+<p>If you’d like to have notifications before your reminder’s due date, set the <code>set_ios_reminders_alarms</code> flag to <code>true</code>.  If this is <code>false</code>, you can still add reminders for your tasks, but you won’t get a pop-up notification before the due date.</p>
+<h3 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">#</a></h3>
+<p>Before you’ll be able to use this script for the first time, there are several configuration steps that are required.  You will also need to review how this script parses keyword flags within your text files, to ensure your tasks are picked up.</p>
+<h4 id="structuring-your-todo-text">Structuring Your TODO Text<a class="headerlink" href="#structuring-your-todo-text" title="Permanent link">#</a></h4>
+<p><em>NOTE: This has really only been used for fairly small .txt and .py files, and may have untested limitations</em></p>
+<p>The script will read the contents of your file, and look for keyword flags.  In order to be identified as a TODO item, the task must include one of the following flags:</p>
+<ul>
+<li><code># TODO:</code></li>
+<li><code>[]</code></li>
+<li><code>◦</code> &lt;- this is the default character used when exporting iOS Notes as text files</li>
+<li><code>☐</code></li>
+</ul>
+<p>Capitalization and spacing shouldn’t matter, but these characters must appear at the beginning of the line (tabs and spaces are stripped).</p>
+<p>If a TODO item is found, the script will also parse any other supported keyword flags, to add context to the task to be created.  Supported keyword flags are:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Keyword Flag</th>
+<th align="center">Expected Value Type</th>
+<th align="center">Example</th>
+<th align="left">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><code>PRIORITY:</code></td>
+<td align="center">integer: 1, 2, 3 or 4</td>
+<td align="center">PRIORITY: 3</td>
+<td align="left">1 - highest, 4 - lowest</td>
+</tr>
+<tr>
+<td align="center"><code>DUE:</code></td>
+<td align="center">date: DD MMM YY</td>
+<td align="center">DUE: 01 Jan 25</td>
+<td align="left">The month isn’t case sensitive, but the day should be padded (%d %b %y format)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>NOTE: The keyword flags ARE case-sensitive, and include a space after the colon</strong></p>
+<p>Any keyword flags, and their values, are stripped from the text before a task is created.  The remaining text will be used as the task’s title, and the description will include the name of the file as well.  Within ClickUp, the task will also contain a tag for the file name, to allow for further sorting and filtering.</p>
+<p>For example, lines 2, 3 and 5 in the example below will be flagged and processed.</p>
+<pre><code>How do I need to structure my text?
+[] Make sure it has one of the TODO keyword flags
+    ◦   View the new tasks within ClickUp DUE: 01 Sep 21
+This line won't get picked up, but the one below will.
+    # TODO: Allow a user-defined calendar stored in config.json PRIORITY: 3
+</code></pre>
+<h4 id="processing-files">Processing Files<a class="headerlink" href="#processing-files" title="Permanent link">#</a></h4>
+<p>In order to pass your files to the script, navigate to the file within iOS.  This should work from nearly anywhere there is a Share button –with the exception of directly within the Notes app (see below for more info).  You will need to add the script to the Share sheet, following Pythonista’s instructions, linked above.  The steps below assume your file is available within the Files app:</p>
+<ol>
+<li>Long-press on the file.</li>
+<li>Select Share</li>
+<li>Select Run Pythonista Script</li>
+<li>Select the Todo Sync script</li>
+</ol>
+<p>That’s it!  The file will be parsed, and you should see new ClickUp tasks and reminders set when reviewing those apps.</p>
+<h4 id="additional-notes">Additional Notes<a class="headerlink" href="#additional-notes" title="Permanent link">#</a></h4>
+<h5 id="ios-notes-app">iOS Notes App<a class="headerlink" href="#ios-notes-app" title="Permanent link">#</a></h5>
+<p>The Notes app doesn’t provide a file name to the Share sheet, until the Note is exported.  This means that any Notes that you’d like to sync should be exported first, and saved somewhere on your local device.  You can then process them through the Files app, for example.</p>
+<h5 id="pythonista-app">Pythonista App<a class="headerlink" href="#pythonista-app" title="Permanent link">#</a></h5>
+<p>My primary use of this has been to send my <code># TODO:</code> comment lines in a script file as tasks.  This can be done directly within Pythonista, by opening the left-hand panel, and choosing <strong>Edit &gt; Share</strong> to open the Share sheet.  It won’t update TODO items that you remove, though, but that may be a future addition.</p>
+<!-- ROADMAP -->
+<h3 id="roadmap">Roadmap<a class="headerlink" href="#roadmap" title="Permanent link">#</a></h3>
+<p>See the # TODO entries within the script itself for more detail.  Primarily this is functional ‘as-is’, but further work can be done to improve certain areas.</p>
+<ul>
+<li>Updating the TODOs within the source file to include a Task ID, to track that they have been sent previously</li>
+<li>Config options for default reminder alarms</li>
+<li>Adding keyword flags for STATUS, ASSIGNEE and START DATE</li>
+<li>Support for project-based lists, based on the file path</li>
+<li>Generalizing the tasks to allow for further task-manager support within:<ul>
+<li>JIRA</li>
+<li>GitHub</li>
+<li>Google Task</li>
+</ul>
+</li>
+<li>Allowing a folder to be passed, to read each file within</li>
+</ul>
+<h3 id="repository">Repository<a class="headerlink" href="#repository" title="Permanent link">#</a></h3>
+<p>Project Link: <a href="https://github.com/ian-multivac/pythonista-todo-sync">https://github.com/ian-multivac/pythonista-todo-sync</a></p>
+<style>
+    .jp-RenderedHTMLCommon p {
+        font-size: .8rem;
+        line-height: 1.6;
+    }
+
+    .jp-RenderedHTMLCommon li {
+        font-size: .8rem;
+        line-height: 1.6;
+    }
+
+    .jp-RenderedHTMLCommon h1 {
+        margin: 0 0 1.25em;
+        color: var(--md-default-fg-color--light);
+        font-weight: 300;
+        font-size: 2em;
+        line-height: 1.3;
+        letter-spacing: -0.01em;
+    }
+
+    .jp-RenderedHTMLCommon h2 {
+        margin: 1.6em 0 .64em;
+        font-weight: 300;
+        font-size: 1.965em;
+        line-height: 1.4;
+        letter-spacing: -0.01em;
+    }
+
+    .jp-RenderedHTMLCommon h3 {
+        margin: 1.6em 0 .8em;
+        font-weight: 400;
+        font-size: 1.57em;
+        line-height: 1.5;
+        letter-spacing: -0.01em;
+    }
+
+    .jp-RenderedHTMLCommon hr {
+        border: none;
+    }
+</style>
+</article>
+</div>
+</div>
+</main>
+<footer class="md-footer">
+<nav aria-label="Footer" class="md-footer__inner md-grid">
+<a aria-label="Previous: myMultivac" class="md-footer__link md-footer__link--prev" href="../.." rel="prev">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</div>
+<div class="md-footer__title">
+<div class="md-ellipsis">
+<span class="md-footer__direction">
+                Previous
+              </span>
+              myMultivac
+            </div>
+</div>
+</a>
+<a aria-label="Next: Reflections" class="md-footer__link md-footer__link--next" href="../reflections/" rel="next">
+<div class="md-footer__title">
+<div class="md-ellipsis">
+<span class="md-footer__direction">
+                Next
+              </span>
+              Reflections
+            </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-footer-copyright">
+<div class="md-footer-copyright__highlight">
+            Copyright © 2021 - Ian Dionne
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+          Material for MkDocs
+        </a>
+</div>
+<div class="md-footer-social">
+<a class="md-footer-social__link" href="mailto:website@mymultivac.com" rel="noopener" target="_blank" title="">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M476 3.2 12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9 13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2 6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.409db549.min.js", "version": null}</script>
+<script src="../../assets/javascripts/bundle.56a63758.min.js"></script>
+</body>
+</html>
