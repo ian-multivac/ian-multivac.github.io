@@ -7,3 +7,4 @@ With the amount of data sent and received by nearly every app we use daily, huge
 ## Multivac's Name
 
 Multivac is the name of a super-computer in several stories by Isaac Asimov.  myMultivac was the name of my first home automation server, a raspberry pi running Home Assistant, inspired by these stories.  I quickly learned that my little server could tell me so much more about my own habits and patterns: how often I was home, what time I woke up or went to bed, what I was listening to or watching...  Smart devices can be used to track simple events that can unlock so much more about each of us.
+
