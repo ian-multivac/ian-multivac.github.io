@@ -349,7 +349,7 @@
 <p class="admonition-title">And yes, there are puns.</p>
 </div>
 <h3 id="10000-view">10,000’ View<a class="headerlink" href="#10000-view" title="Permanent link">#</a></h3>
-<p>The general logic we’ll use for this project can be applied to any given set of tools, but this automation only has a few steps.  The automation:</p>
+<p>The general logic we’ll use for this project can be applied to any given set of tools, but this automation only has a few steps.  The flow:</p>
 <ul>
 <li>listens for an incoming request using a webhook, then</li>
 <li>makes a request to the airport’s site, and</li>
@@ -359,17 +359,18 @@
 </ul>
 <p>Within N8N, it looks like this:</p>
 <p><img alt="N8N flight automation flow image" src="/projects/images/n8n_flights_flow.png"/></p>
-<p>Let’s take a closer look into each of the nodes in that screenshot, to walk through what each step is actually doing.</p>
+<p>Each of the nodes in that screenshot acts as a function.  It has some sort of input and some sort of output.  Nodes can be stitched together to make some very complex flows, the same as any “hand-written” program made of code functions. Let’s take a closer look into each of the nodes in that screenshot, and walk through what each step is actually doing.</p>
 <h3 id="taking-off">Taking Off<a class="headerlink" href="#taking-off" title="Permanent link">#</a></h3>
-<p>One of the best ways N8N has helped me build automations and quickly iterate on random projects is the incredibly easy-to-use pre-built nodes, shown in the screenshot above.  Its drag-and-drop builder makes it very simple to handle web-based tasks, and provide a basic webserver to act as a framework.</p>
+<p>Any automation flow requires a defined trigger.  We’re going to use a Webhook node.  The webhook used in this flow can be replaced by a script scheduled via cron job, if we chose not to use N8N, but the subsequent steps would be essentially the same.  Ultimately, we need to serve a page at the end of this flow, and webhooks are the way to do that within N8N.  See <a href="#publishing-and-refining-our-flow">Publishing and refining our flow</a> below for some other benefits of changing the trigger.</p>
 <div class="admonition tip">
-<p class="admonition-title">The logic will apply to any similar task</p>
-<p>The webhook listener that can be replaced by a script running based on a cron job or other trigger, but the subsequent steps would be essentially the same for any scraped site or tool.  See <a href="#publishing-and-refining-our-flow">Publishing and refining our flow</a> below for some other benefits of changing the trigger.</p>
+<p class="admonition-title">Why all the talk about N8N?</p>
+<p>I initially built this project as a python script, and it took hardly any time at all.  But, that was hard to share without ensuring the person I’m sharing with has easy access to a dev environment etc etc.</p>
+<p>One of the biggest ways N8N has helped me build automations and quickly iterate on random projects is the incredibly easy-to-use pre-built nodes.  There are only a couple types shown in the screenshot above, but there are hundreds built-in, and more that are provided by their community.  Its drag-and-drop builder makes it very simple to handle transforming data as it works through a series of nodes, but possibly my favourite part is that it provides a basic webserver framework, so I don’t have to constantly keep working on a backend in a local environment for a quick dumbass idea, and I can easily share the results with less technical people.</p>
 </div>
 <h4 id="step-1-webhook-node">Step 1: Webhook node<a class="headerlink" href="#step-1-webhook-node" title="Permanent link">#</a></h4>
 <p>This node basically just waits until someone makes a request to a specific URL.  Once it receives that request, the rest of the flow is initiated.</p>
 <p><img alt="N8N webhook node" src="/projects/images/n8n_flights_webhook_node.png"/></p>
-<p>The important part of this node is the <code>Respond</code> setting at the bottom of that screenshot, which is set to respond “Using ‘Respond Using Webhook’ Node”.</p>
+<p>The important part of this node is the <code>Respond</code> setting at the bottom of the image, which is set to respond “Using ‘Respond Using Webhook’ Node”.</p>
 <div class="admonition tip">
 <p class="admonition-title">I accidentally forgot that setting…</p>
 <p>I was fiddling with my final template for way too long, wondering why my formatting didn’t get applied, I won’t lie. N8N has a lot of different nodes and settings, and sometimes it’s easy to forget to tick a box!</p>
@@ -378,12 +379,12 @@
 <p>Once the flow is triggered by the webhook, this node makes a <code>GET</code> request to the airport’s website.  The specific site targeted by this flow uses straight HTML on its pages, and the response to the <code>GET</code> request is a messy pile of HTML, but a straightforward one.</p>
 <div class="admonition tip">
 <p class="admonition-title">Dynamic sites</p>
-<p>Our source site is updated frequently, but it doesn’t load data using JavaScript, and there are no extra navigation steps or input forms to worry about.  Other sites might require additional step to load the appropriate elements into the page, which could be harder to do directly in N8N.</p>
+<p>Our source site is updated frequently, but it doesn’t load data using JavaScript, and there are no extra navigation steps or input forms to worry about.  Other sites might require additional steps to load the appropriate elements into the page, which could be harder to do directly in N8N.</p>
 </div>
 <p><img alt="N8N GET HTTP node" src="/projects/images/n8n_flights_get_request_node.png"/></p>
-<p>The response to the <code>GET</code> request gets assigned to the <code>data</code> property of the node’s output, and shown on the left side of the screenshot above.  In other tools or raw scripts, this could be the raw response data, without getting assigned to its own property.  Either way, our next step is to extract a specific section of that HTML response.</p>
+<p>The response to the <code>GET</code> request gets assigned to the <code>data</code> property of the node’s output, and shown on the right side of the screenshot above.  In other tools or raw scripts, this could be the raw response data, without getting assigned to its own property.  Either way, our next step is to extract a specific section of that HTML response.</p>
 <h4 id="step-3-extract-table-element-node">Step 3: Extract Table Element node<a class="headerlink" href="#step-3-extract-table-element-node" title="Permanent link">#</a></h4>
-<p>Wading through raw HTML is no one’s idea of a good time, but the Extract HTML node within N8N needs us to target a specific CSS selector.  Right-clicking on the airport’s table and choosing <code>Inspect Element</code> can make quick work of that.</p>
+<p>Wading through raw HTML is no one’s idea of a good time, and the Extract HTML node within N8N needs us to target a specific CSS selector.  Thanfully, visiting the airport’s website and right-clicking on the departing flights table lets us <code>Inspect Element</code>, which can usually  make quick work of that.</p>
 <p><img alt="Right-click on the target element, and use your browser's Inspect Element option to quickly find the right ID" src="/projects/images/n8n_flights_inspect_element.png"/></p>
 <p>This will pop open the browser console and show us the site’s code.  It took a little bit of spot-checking through the element tree to find the best one to use, but in this case, the target element ID was <code>#nav-departures</code>.</p>
 <div class="admonition tip">
@@ -391,9 +392,9 @@
 <p>My screenshot above is from Safari, but Chrome, Firefox and Edge will each have options to find a CSS selector, usually by right-clicking on the element’s code in the console, and hitting “Copy”.</p>
 </div>
 <p><img alt="N8N Extract HTML node, showing input and output" src="/projects/images/n8n_flights_extract_html_node.png"/></p>
-<p>In the screenshot above, there are a few areas highlighted.  In step 2, N8N stored our response data in a property called <code>data</code>.  This step reads the <code>data</code> property, and targets any of the extraction values we set in the section below.  This extracted data is then passed as JSON in the output of this node.  In our case, we want to target the <code>#nav-departures</code> selector that we found above, by entering it into the  <code>CSS Selector</code> field.  Just above that, note that we’ve assigned the key <code>nav-departures</code> to this extracted data, so we can use it in the next step.</p>
+<p>In the screenshot above, there are a few areas highlighted with blue squares.  In step 2, N8N stored our response data in a property called <code>data</code>.  This step reads the <code>data</code> property, and targets any of the extraction values we set in the section below.  This extracted data is then passed as JSON in the output of this node.  In our case, we want to target the <code>#nav-departures</code> selector that we found above, by entering it into the  <code>CSS Selector</code> field.  Just above that, note that we’ve assigned the key <code>nav-departures</code> to this extracted data, so we can use it in the next step.</p>
 <h4 id="step-4-generate-html-template-node">Step 4: Generate HTML Template node<a class="headerlink" href="#step-4-generate-html-template-node" title="Permanent link">#</a></h4>
-<p>We now have our table data, stored with the key <code>nav-departures</code> as the output of step 3.  Since our end goal is to have a simple webpage to display the data, we need to create a basic HTML template that will properly block the section that we just in-elegantly carved from its original home.  Again, N8N has a node for this.  The HTML node can allow us to drop our key into some boilerplate website code, and give us a way to apply some basic styling.</p>
+<p>We now have our table data, stored with the key <code>nav-departures</code> as the output of step 3.  Since our end goal is to have a simple webpage to display the data, we need to create a basic HTML template that will properly block the section that we just in-elegantly carved from its original home.  Again, N8N has a node for this.  The HTML node can be used to generate a template, which will allow us to drop our key into some boilerplate website code.  The default code that’s already loaded in the node also gives us a way to apply some basic styling, which is a good thing because that’s my least favourite part of any of these projects.</p>
 <p>The quick and dirty HTML template used is here:</p>
 <pre><code class="language-html">&lt;!DOCTYPE html&gt;
 
@@ -472,7 +473,7 @@ tr.arrivals:nth-child(even){background-color: #f2f2f2;}
 
 </code></pre>
 <div class="admonition tip">
-<p class="admonition-title">I really don’t love CSS</p>
+<p class="admonition-title">I really don’t love dealing with CSS</p>
 <p>So there’re likely errors, unused code, and feel free to make yours better :)</p>
 </div>
 <p>The most important part of this HTML template is here:</p>
@@ -486,10 +487,10 @@ tr.arrivals:nth-child(even){background-color: #f2f2f2;}
 </code></pre>
 <p>The handlebars notation in the format, <code>{{ something }}</code>, describes a variable in N8N.  The specific instruction it describes is to look up the node’s input (shown by <code>$json</code>), in the <code>nav-departures</code> key, and retrieve the first element in the array (described by <code>[0]</code>).  In this case, it’s the data we just stored in that key, in the last step.</p>
 <p><img alt="In N8N, the JSON input gets turned into a proper HTML table" src="/projects/images/n8n_flights_html_template.png"/></p>
-<p>Within the Generate HTML Template node, our JSON input gets added directly into the base webpage template, to properly frame the existing HTML that we pulled out of the airport’s main site.  The <code>&lt;style&gt;</code> block in the HTML template sets up some simple formatting instructions to the table.</p>
+<p>Within the Generate HTML Template node, our JSON input gets added directly into the base webpage template, to properly block the existing HTML that we pulled out of the airport’s main site.  The <code>&lt;style&gt;</code> block in the HTML template sets up some simple formatting instructions to the table, and we can see a much prettier (if a little bit squashed) result in the output preview pane on the right side of that screenshot.</p>
 <div class="admonition tip">
 <p class="admonition-title">Did I tell you already that I don’t love CSS?</p>
-<p>It can be annoying, but a couple small changes can make a huge difference in formatting!</p>
+<p>It can be annoying, but a couple small changes can make a huge difference in formatting.  Getting the formatting rules in place to took longer than writing the code, or connecting the nodes, but I’ll begrudgingly admit that it was a good refresher.</p>
 </div>
 <h4 id="step-5-respond-to-webhook">Step 5: Respond to Webhook<a class="headerlink" href="#step-5-respond-to-webhook" title="Permanent link">#</a></h4>
 <p>The output of our last node was a lot more appealling than the raw JSON information that we’ve been dealing with up until now.  The only thing left to do is to pass this new template back to the original webhook URL, so our display screen can present it.</p>
@@ -502,7 +503,7 @@ tr.arrivals:nth-child(even){background-color: #f2f2f2;}
 <h5 id="error-handling">Error handling<a class="headerlink" href="#error-handling" title="Permanent link">#</a></h5>
 <p>The most obvious and likely most important for an end user, is error handling!  What happens if we can’t connect to the airport’s site?  What happens if they change the CSS selector on their end?  Our flow doesn’t have any way to surface errors currently, but that’s absolutely something you’ll want to consider as you build your own projects.</p>
 <h5 id="asynchronous-updates">Asynchronous updates<a class="headerlink" href="#asynchronous-updates" title="Permanent link">#</a></h5>
-<p>This flow waits until the webhook trigger is called, before doing any requests to the main site.  An ideal flow would gather than information periodically and storing it, without waiting for something to trigger a request to the external site.  It would improve response time, and make it easier to handle errors before they’re made visible to an end user.</p>
+<p>This flow waits until the webhook trigger is called, before doing any requests to the main site.  An ideal flow would gather that information periodically, and storing it, without waiting for something to trigger a request to the external site.  It would improve response time, and make it easier to handle errors before they’re made visible to an end user.</p>
 <h5 id="pretty-it-up">Pretty it up<a class="headerlink" href="#pretty-it-up" title="Permanent link">#</a></h5>
 <p>This particular table relies on the airport doing nearly all of the data transformation; we just slap a bit of styling over top.  Now that the basics are done, though, we could do some more substantial reformatting, like colour-coding delayed flights or changing the header information.  Combined with a few of the other refinements above, we could even enrich the page with information from other sources, like the current weather at a flight’s destination.</p>
 <style>

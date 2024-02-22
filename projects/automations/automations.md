@@ -11,7 +11,7 @@ This project uses a self-hosted [N8N](https://n8n.io) environment to serve the l
 
 ## 10,000' View
 
-The general logic we'll use for this project can be applied to any given set of tools, but this automation only has a few steps.  The automation:
+The general logic we'll use for this project can be applied to any given set of tools, but this automation only has a few steps.  The flow:
 
 - listens for an incoming request using a webhook, then
 - makes a request to the airport's site, and
@@ -23,15 +23,17 @@ Within N8N, it looks like this:
 
 ![N8N flight automation flow image](/projects/images/n8n_flights_flow.png)
 
-Let's take a closer look into each of the nodes in that screenshot, to walk through what each step is actually doing.
+Each of the nodes in that screenshot acts as a function.  It has some sort of input and some sort of output.  Nodes can be stitched together to make some very complex flows, the same as any "hand-written" program made of code functions. Let's take a closer look into each of the nodes in that screenshot, and walk through what each step is actually doing.
 
 ## Taking Off
 
-One of the best ways N8N has helped me build automations and quickly iterate on random projects is the incredibly easy-to-use pre-built nodes, shown in the screenshot above.  Its drag-and-drop builder makes it very simple to handle web-based tasks, and provide a basic webserver to act as a framework.
+Any automation flow requires a defined trigger.  We're going to use a Webhook node.  The webhook used in this flow can be replaced by a script scheduled via cron job, if we chose not to use N8N, but the subsequent steps would be essentially the same.  Ultimately, we need to serve a page at the end of this flow, and webhooks are the way to do that within N8N.  See [Publishing and refining our flow](#publishing-and-refining-our-flow) below for some other benefits of changing the trigger.
 
-!!! tip "The logic will apply to any similar task"
-
-    The webhook listener that can be replaced by a script running based on a cron job or other trigger, but the subsequent steps would be essentially the same for any scraped site or tool.  See [Publishing and refining our flow](#publishing-and-refining-our-flow) below for some other benefits of changing the trigger.
+!!! tip "Why all the talk about N8N?"
+  
+    I initially built this project as a python script, and it took hardly any time at all.  But, that was hard to share without ensuring the person I'm sharing with has easy access to a dev environment etc etc.
+    
+    One of the biggest ways N8N has helped me build automations and quickly iterate on random projects is the incredibly easy-to-use pre-built nodes.  There are only a couple types shown in the screenshot above, but there are hundreds built-in, and more that are provided by their community.  Its drag-and-drop builder makes it very simple to handle transforming data as it works through a series of nodes, but possibly my favourite part is that it provides a basic webserver framework, so I don't have to constantly keep working on a backend in a local environment for a quick dumbass idea, and I can easily share the results with less technical people.
 
 ### Step 1: Webhook node
 
@@ -39,7 +41,7 @@ This node basically just waits until someone makes a request to a specific URL. 
 
 ![N8N webhook node](/projects/images/n8n_flights_webhook_node.png)
 
-The important part of this node is the `Respond` setting at the bottom of that screenshot, which is set to respond "Using 'Respond Using Webhook' Node".
+The important part of this node is the `Respond` setting at the bottom of the image, which is set to respond "Using 'Respond Using Webhook' Node".
 
 !!! tip "I accidentally forgot that setting..."
     
@@ -51,15 +53,15 @@ Once the flow is triggered by the webhook, this node makes a `GET` request to th
 
 !!! tip "Dynamic sites"
     
-    Our source site is updated frequently, but it doesn't load data using JavaScript, and there are no extra navigation steps or input forms to worry about.  Other sites might require additional step to load the appropriate elements into the page, which could be harder to do directly in N8N.
+    Our source site is updated frequently, but it doesn't load data using JavaScript, and there are no extra navigation steps or input forms to worry about.  Other sites might require additional steps to load the appropriate elements into the page, which could be harder to do directly in N8N.
 
 ![N8N GET HTTP node](/projects/images/n8n_flights_get_request_node.png)
 
-The response to the `GET` request gets assigned to the `data` property of the node's output, and shown on the left side of the screenshot above.  In other tools or raw scripts, this could be the raw response data, without getting assigned to its own property.  Either way, our next step is to extract a specific section of that HTML response.
+The response to the `GET` request gets assigned to the `data` property of the node's output, and shown on the right side of the screenshot above.  In other tools or raw scripts, this could be the raw response data, without getting assigned to its own property.  Either way, our next step is to extract a specific section of that HTML response.
 
 ### Step 3: Extract Table Element node
 
-Wading through raw HTML is no one's idea of a good time, but the Extract HTML node within N8N needs us to target a specific CSS selector.  Right-clicking on the airport's table and choosing `Inspect Element` can make quick work of that.
+Wading through raw HTML is no one's idea of a good time, and the Extract HTML node within N8N needs us to target a specific CSS selector.  Thanfully, visiting the airport's website and right-clicking on the departing flights table lets us `Inspect Element`, which can usually  make quick work of that.
 
 ![Right-click on the target element, and use your browser's Inspect Element option to quickly find the right ID](/projects/images/n8n_flights_inspect_element.png)
 
@@ -71,11 +73,11 @@ This will pop open the browser console and show us the site's code.  It took a l
 
 ![N8N Extract HTML node, showing input and output](/projects/images/n8n_flights_extract_html_node.png)
 
-In the screenshot above, there are a few areas highlighted.  In step 2, N8N stored our response data in a property called `data`.  This step reads the `data` property, and targets any of the extraction values we set in the section below.  This extracted data is then passed as JSON in the output of this node.  In our case, we want to target the `#nav-departures` selector that we found above, by entering it into the  `CSS Selector` field.  Just above that, note that we've assigned the key `nav-departures` to this extracted data, so we can use it in the next step.
+In the screenshot above, there are a few areas highlighted with blue squares.  In step 2, N8N stored our response data in a property called `data`.  This step reads the `data` property, and targets any of the extraction values we set in the section below.  This extracted data is then passed as JSON in the output of this node.  In our case, we want to target the `#nav-departures` selector that we found above, by entering it into the  `CSS Selector` field.  Just above that, note that we've assigned the key `nav-departures` to this extracted data, so we can use it in the next step.
 
 ### Step 4: Generate HTML Template node
 
-We now have our table data, stored with the key `nav-departures` as the output of step 3.  Since our end goal is to have a simple webpage to display the data, we need to create a basic HTML template that will properly block the section that we just in-elegantly carved from its original home.  Again, N8N has a node for this.  The HTML node can allow us to drop our key into some boilerplate website code, and give us a way to apply some basic styling.
+We now have our table data, stored with the key `nav-departures` as the output of step 3.  Since our end goal is to have a simple webpage to display the data, we need to create a basic HTML template that will properly block the section that we just in-elegantly carved from its original home.  Again, N8N has a node for this.  The HTML node can be used to generate a template, which will allow us to drop our key into some boilerplate website code.  The default code that's already loaded in the node also gives us a way to apply some basic styling, which is a good thing because that's my least favourite part of any of these projects.
 
 The quick and dirty HTML template used is here:
 
@@ -157,7 +159,7 @@ tr.arrivals:nth-child(even){background-color: #f2f2f2;}
 
 ```
 
-!!! tip "I really don't love CSS"
+!!! tip "I really don't love dealing with CSS"
     
     So there're likely errors, unused code, and feel free to make yours better :)
 
@@ -177,11 +179,11 @@ The handlebars notation in the format, `{{'{{ something }}'}}`, describes a vari
 
 ![In N8N, the JSON input gets turned into a proper HTML table](/projects/images/n8n_flights_html_template.png)
 
-Within the Generate HTML Template node, our JSON input gets added directly into the base webpage template, to properly frame the existing HTML that we pulled out of the airport's main site.  The `<style>` block in the HTML template sets up some simple formatting instructions to the table.
+Within the Generate HTML Template node, our JSON input gets added directly into the base webpage template, to properly block the existing HTML that we pulled out of the airport's main site.  The `<style>` block in the HTML template sets up some simple formatting instructions to the table, and we can see a much prettier (if a little bit squashed) result in the output preview pane on the right side of that screenshot.
 
 !!! tip "Did I tell you already that I don't love CSS?"
 
-    It can be annoying, but a couple small changes can make a huge difference in formatting!
+    It can be annoying, but a couple small changes can make a huge difference in formatting.  Getting the formatting rules in place to took longer than writing the code, or connecting the nodes, but I'll begrudgingly admit that it was a good refresher.
 
 ### Step 5: Respond to Webhook
 
@@ -205,7 +207,7 @@ The most obvious and likely most important for an end user, is error handling!  
 
 #### Asynchronous updates
 
-This flow waits until the webhook trigger is called, before doing any requests to the main site.  An ideal flow would gather than information periodically and storing it, without waiting for something to trigger a request to the external site.  It would improve response time, and make it easier to handle errors before they're made visible to an end user.
+This flow waits until the webhook trigger is called, before doing any requests to the main site.  An ideal flow would gather that information periodically, and storing it, without waiting for something to trigger a request to the external site.  It would improve response time, and make it easier to handle errors before they're made visible to an end user.
 
 #### Pretty it up
 
