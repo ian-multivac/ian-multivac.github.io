@@ -13,9 +13,9 @@ This script will use the Share sheet within iOS, and process a text file line by
 ### Built With
 
 * [Pythonista3](http://omz-software.com/pythonista/)
-  * Pythonista is an iOS-based Python IDE --at the time of writing, it is a paid app.
+    * Pythonista is an iOS-based Python IDE --at the time of writing, it is a paid app.
 * [ClickUp](https://clickup.com)
-  * ClickUp is a task / project / document manager that has a use-case for everyone.  I prefer it over Notion.
+    * ClickUp is a task / project / document manager that has a use-case for everyone.  I prefer it over Notion.
 
 ## Getting Started
 
